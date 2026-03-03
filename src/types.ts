@@ -2,36 +2,45 @@ export interface Session {
   id: string;
   timestamp: number;
   duration: number; // in seconds
-  mode: string;
-  xpEarned: number;
-  isTraderMode: boolean;
-  focusId?: string;
-  focusName?: string;
+  focusName: string;
+  timerMode: string;
 }
 
 export interface FocusTask {
   id: string;
   name: string;
-  category: 'Trading' | 'Skill Development' | 'Study' | 'Mind & Discipline' | 'Health & Fitness' | 'Custom';
-  sessions: number;
-  totalMinutes: number;
-  xp: number;
   isFavorite: boolean;
-  isCompleted: boolean;
+  isCustom?: boolean;
+}
+
+export interface TimerMode {
+  id: string;
+  name: string;
+  duration: number; // in minutes
+  isCustom?: boolean;
+  color?: string;
+  soundType?: string;
+}
+
+export interface UserSettings {
+  defaultTimerDuration: number;
+  defaultBreakDuration: number;
+  soundVolume: number;
+  isSoundEnabled: boolean;
+  isConfettiEnabled: boolean;
+  isAutoStartEnabled: boolean;
+  isTickEnabled: boolean;
+  isDarkMode: boolean;
 }
 
 export interface UserStats {
-  totalSessions: number;
-  totalFocusMinutes: number;
+  totalSessionsToday: number;
+  totalMinutesToday: number;
   currentStreak: number;
   bestStreak: number;
-  xp: number;
-  level: number;
   lastSessionDate: string | null;
   history: Session[];
   focusTasks: FocusTask[];
-  lifetimeSessions: number;
+  customTimers: TimerMode[];
+  settings: UserSettings;
 }
-
-export type TimerMode = '1m' | '5m' | '15m' | 'custom';
-export type Category = FocusTask['category'] | 'All';
